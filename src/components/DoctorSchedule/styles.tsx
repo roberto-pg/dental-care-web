@@ -45,16 +45,6 @@ width: 27.2rem;
 padding: 2rem 10.5rem 0 3rem;
 `
 
-export const DoctorBioText = styled.text`
-  font-size: 1.4rem;
-  font-weight: 500;
-  font-family: 'Poppins';
-  color: var(--text-get-in);
-  position: absolute;
-  left: 5rem;
-  top: 17rem;
-`
-
 export const DoctorBioContainer = styled.div`
   width: 20rem;
   height: 7.5rem;
@@ -92,6 +82,18 @@ export const DescriptionText = styled.text`
   left: 7.5rem;
   top: 4rem;
 `
+
+export const DoctorBioText = styled.text`
+  font-size: 1rem;
+  font-weight: 500;
+  font-family: 'Poppins';
+  color: var(--text-get-in);
+  position: absolute;
+  top: 17rem;
+  left: 3rem;
+  right: 3rem;
+`
+
 export const RightContainer = styled.div`
   width: 37.5rem;
   height: 31.25rem;

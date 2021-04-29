@@ -4,7 +4,7 @@ export const DoctorCardContainer = styled.div`
 width: 8rem;
 height: 8rem;
 display: inline;
-padding: 0 1rem;;
+padding: 0;
 border-radius: 0.625rem;
 background: white;
 cursor: pointer;
@@ -34,5 +34,5 @@ export const DoctorNameText = styled.h1`
 export const ImageDoctor = styled.img`
   width: 4.5rem;
   height: 4.5rem;
-  margin: 0 0.8rem;
+  margin: 0.2rem 1.7rem 0 1.7rem;
 `

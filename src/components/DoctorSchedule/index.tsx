@@ -172,7 +172,8 @@ function DoctorSchedule() {
             <DescriptionText>{doc?.specialty}</DescriptionText>
           </DoctorBioContainer>
           <DoctorBioText>
-            Utilize as colunas ao<br />lado para excluir ou<br />criar horários para<br />agendamento
+            {doc?.bio}
+            {/* Utilize as colunas ao<br />lado para excluir ou<br />criar horários para<br />agendamento */}
           </DoctorBioText>
         </SectionLeft>
         <form onSubmit={handleSubmit}>
