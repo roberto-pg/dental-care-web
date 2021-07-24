@@ -1,42 +1,23 @@
-import 'react-calendar/dist/Calendar.css'
-import { DoctorProfileNavBar } from '../NavBar'
-import Logo from '../Logo'
-import ScheduleCard from '../ScheduleCard'
+import { format, formatISO } from 'date-fns'
+import pt from 'date-fns/locale/pt'
+import Cookies from 'js-cookie'
 import { useRouter } from 'next/router'
-import { FormEvent, useState, useEffect } from 'react'
-import { hoursList } from '../../utils/hoursList'
+import { FormEvent, useEffect, useState } from 'react'
+import 'react-calendar/dist/Calendar.css'
+import DatePicker, { registerLocale } from 'react-datepicker'
+import 'react-datepicker/dist/react-datepicker.css'
 import Swal from 'sweetalert2'
 import api from '../../services/api'
+import { hoursList } from '../../utils/hoursList'
 import { StyledCalendar } from '../DoctorCalendar/styles'
-import { format, formatISO } from 'date-fns'
-import DatePicker, { registerLocale } from 'react-datepicker'
-import pt from 'date-fns/locale/pt'
-import 'react-datepicker/dist/react-datepicker.css'
-import Cookies from 'js-cookie'
+import Logo from '../Logo'
+import { DoctorProfileNavBar } from '../NavBar'
+import ScheduleCard from '../ScheduleCard'
 import {
-  DoctorAppointmentContainer,
-  Content,
-  SectionLeft,
-  ContainerLogo,
-  DoctorBioText,
-  DoctorBioContainer,
-  ImageDoctor,
-  DoctorNameText,
-  DescriptionText,
-  RightContainer,
-  SectionRight1,
-  DateBar,
-  ScrollCardContainer,
-  SectionRight2,
+  AppointmentButton, CalendarContainer, ContainerLogo, Content, DateBar, DescriptionText, DoctorAppointmentContainer, DoctorBioContainer, DoctorBioText, DoctorNameText, HourCardContainer, HourContainer,
+  HourText, ImageDoctor, RightContainer, SaveContainer, ScrollCardContainer, ScrollHourContainer, SectionLeft, SectionRight1, SectionRight2,
   TextContainer,
-  TitleText,
-  CalendarContainer,
-  HourCardContainer,
-  ScrollHourContainer,
-  HourContainer,
-  HourText,
-  SaveContainer,
-  AppointmentButton
+  TitleText
 } from './styles'
 registerLocale('pt', pt)
 
@@ -136,7 +117,8 @@ function DoctorSchedule() {
     const schedulesData = ({
       doctorName: doc.name,
       specialty: doc.specialty,
-      monthDay: formatISO(new Date(value.toString())),
+      monthDay: format(new Date(value.toString()), 'yyyy-MM-dd'),
+      // monthDay: formatISO(new Date(value.toString())),
       weekDay: capitalizedWeekDay(format(new Date(value.toString()), 'EEEE', { locale: pt })),
       patientName: '',
       cpf: '',
