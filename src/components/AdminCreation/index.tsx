@@ -32,8 +32,9 @@ function AdminCreation() {
       name,
       email,
       cpf,
-      password,
       plain: 'Particular',
+      card: '',
+      password,
       admin: true
     })
 
@@ -44,7 +45,7 @@ function AdminCreation() {
       setCpfFormatted('')
       setPassword('')
       Swal.fire('Tudo certo', 'O novo administrador foi cadastrado')
-      router.push('/')
+      router.push('/home')
     } catch (error) {
       Swal.fire('Oops, algo deu errado', error.response.data.Error)
     }

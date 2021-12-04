@@ -34,6 +34,8 @@ function PatientCard(props: UserType) {
     })
   }
 
+  // const admin = ' - Administrador'
+
   return (
     <>
       {users?.map(user => (
@@ -50,7 +52,7 @@ function PatientCard(props: UserType) {
             onClick={() => handleCookie(user?.id)}
           >
             <LeftContainer>
-              <PacientListTitle>{user?.name}</PacientListTitle>
+              <PacientListTitle>{user?.admin === true ? user?.name + ' - Admin' : user?.name}</PacientListTitle>
               <PacientListSubtitle>{user?.plain}</PacientListSubtitle>
             </LeftContainer>
             <RightContainer>
