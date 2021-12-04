@@ -92,8 +92,7 @@ function AppointmentCreationCard(props: ScheduleType) {
 
     const day = format(new Date(appointmentDay), 'yyyy-MM-dd')
     const appointmentDayFormatted = day.concat('-').concat(appointmentHour)
-    console.log(appointmentDayFormatted)
-    console.log(currentDateFormatted)
+
     if (appointmentDayFormatted > currentDateFormatted) {
       try {
         await api.patch('schedule-editable', data)
