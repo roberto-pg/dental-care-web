@@ -8,7 +8,7 @@ export const AppointmentCreationCardContainer = styled.div`
   align-items: center;
   margin: 1rem;
   background-color: var(--white);
-  box-shadow: 0 0 0.5em var(--color-shadow);
+  box-shadow: 0 0 0.5em var(--color-shadow);  
 
   &:hover {
     border: 1px solid;
@@ -77,7 +77,7 @@ export const WeekDayText = styled.h1`
   padding: auto;
 `
 
-export const EditButton = styled.button`
+export const EditAppointmentButton = styled.button`
   width: 3.5rem;
   height: 1.25rem;
   background-color: var(--save-button-background);
@@ -90,7 +90,7 @@ export const EditButton = styled.button`
   border-radius: 5px;
   outline: 0;
   transition: .3s;
-  cursor: pointer;
+  cursor: ${props => (props.id === 'disabled' ? 'not-allowed' : 'pointer')};
   display: ${props => (props.className === 'true' ? 'inline' : 'none')};
   
   &:hover,
@@ -99,7 +99,7 @@ export const EditButton = styled.button`
   }
 `
 
-export const SaveButton = styled.button`
+export const SaveAppointmentButton = styled.button`
   width: 3.5rem;
   height: 1.25rem;
   background-color: var(--save-button-background);
@@ -121,7 +121,7 @@ export const SaveButton = styled.button`
   }
 `
 
-export const CancelButton = styled.button`
+export const ClearInputButton = styled.button`
   width: 4.3rem;
   height: 1.25rem;
   background-color: var(--save-button-background);
@@ -143,8 +143,8 @@ export const CancelButton = styled.button`
   }
 `
 
-export const ClearButton = styled.button`
-  width: 6rem;
+export const CancelAppointmentButton = styled.button`
+  width: 5.8rem;
   height: 1.35rem;
   background-color: var(--save-button-background);
   font-size: 0.875rem;
@@ -156,7 +156,7 @@ export const ClearButton = styled.button`
   border-radius: 5px;
   outline: 0;
   transition: .3s;
-  cursor: pointer;
+  cursor: ${props => (props.id === 'disabled' ? 'not-allowed' : 'pointer')};
   display: ${props => (props.className === 'true' ? 'inline' : 'none')};
   
   &:hover,

@@ -16,8 +16,8 @@ import {
 } from './styles'
 
 type Schedule = {
-  id: number;
-  doctorId: number;
+  id: string;
+  doctorId: string;
   monthDay: string;
   weekDay: string;
   hour: string;
@@ -32,9 +32,9 @@ export default function ScheduleCard(props: ScheduleType) {
   const { doctor } = props
   const router = useRouter()
 
-  async function removeSchedule(id: number, doctorId: number) {
+  async function removeSchedule(id: string, doctorId: string) {
     try {
-      await api.delete(`schedules/delete/${id}`)
+      await api.delete(`delete-schedule/${id}`)
       router.push({
         pathname: 'doctor-schedule',
         query: {

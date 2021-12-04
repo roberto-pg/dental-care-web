@@ -31,13 +31,13 @@ import {
   MiddleContainer2,
   ActiveLabel,
   YesButton,
-  Checked,
+  CheckPatient,
   RightBottomContainer,
   DeleteButton
 } from './styles'
 
 type User = {
-  id: number,
+  id: string,
   name: string,
   email: string,
   cpf: string,
@@ -57,7 +57,7 @@ function PatientList() {
   async function loadUser() {
     try {
       const response = await api.get('users')
-      const userData = response.data.user
+      const userData = response.data
       setUser(userData)
     } catch (error) {
       Swal.fire('Oops, algo deu errado', error.response.data.Error)
@@ -74,13 +74,13 @@ function PatientList() {
     }
   }
 
-  async function handleStatus(userId: number, userStatus: boolean) {
+  async function handleStatus(userId: string, userStatus: boolean) {
     try {
       const data = ({
         id: userId,
         active: !userStatus
       })
-      await api.patch('users/active', data)
+      await api.patch('user-active', data)
       router.push({
         pathname: 'patient-list',
         query: {
@@ -92,9 +92,9 @@ function PatientList() {
     }
   }
 
-  async function removeUser(userId: number) {
+  async function removeUser(userId: string) {
     const adminId = Cookies.get('adminId')
-    if (Number(adminId) === userId) {
+    if (adminId === userId) {
       Swal.fire('Falha na operação', 'Não é possível remover o administrador logado')
       return
     }
@@ -109,7 +109,7 @@ function PatientList() {
     }).then(async(result) => {
       if (result.isConfirmed) {
         try {
-          await api.delete(`users/delete/${userId}`)
+          await api.delete(`delete-user/${userId}`)
           setUserById(null)
           router.push({
             pathname: 'patient-list',
@@ -151,7 +151,7 @@ function PatientList() {
         <SectionRight>
           <RightSubtitleContainer>
             <PatientDataTitle>Dados do paciente</PatientDataTitle>
-            <Checked
+            <CheckPatient
               display={!userById ? 'no' : 'yes'}
               className={userById?.active ? 'free' : ''}
             />

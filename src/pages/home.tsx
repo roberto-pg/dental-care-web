@@ -5,11 +5,12 @@ import { useContext } from 'react'
 import { DoctorContext } from '../contexts/Doctor'
 
 type DoctorData = {
-  id: number;
+  id: string;
   name: string;
   specialty: string;
   imageUrl: string;
   bio: string;
+  active: boolean;
 }
 
 type EquipeData = {
@@ -41,6 +42,7 @@ export const getServerSideProps: GetServerSideProps = async({ req }) => {
     const response = await api.get('doctors', {
       headers: { Authorization: `Bearer ${jwt}` }
     })
+
     const doctorApi = await response.data
 
     if (!doctorApi) {

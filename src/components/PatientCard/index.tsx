@@ -11,7 +11,7 @@ import {
 const inSixtyMinutes = new Date(new Date().getTime() + 60 * 60 * 1000)
 
 type User = {
-  id: number,
+  id: string,
   name: string,
   email: string,
   cpf: string,
@@ -28,8 +28,8 @@ type UserType = {
 function PatientCard(props: UserType) {
   const { users } = props
 
-  function handleCookie(id: number) {
-    Cookies.set('userId', String(id), {
+  function handleCookie(id: string) {
+    Cookies.set('userId', id, {
       expires: inSixtyMinutes
     })
   }

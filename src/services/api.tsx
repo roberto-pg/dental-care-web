@@ -24,8 +24,8 @@ api.interceptors.response.use((response) => {
     case 401:
       Swal.fire('A conexão expirou...', 'Para continuar faça um novo login')
       setTimeout(() => {
-        window.location.href = 'https://dental-care.vercel.app'
-        // window.location.href = 'http://localhost:3000'
+        // window.location.href = 'https://dental-care.vercel.app'
+        window.location.href = 'http://localhost:3000'
       }, 3 * 1000)
       break
       // Tratamentos de outros status de erro podem ser adicionados aqui

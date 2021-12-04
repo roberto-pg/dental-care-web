@@ -54,18 +54,6 @@ export const LoginBar = styled.div`
   background: var(--white);
 `
 
-export const RegisterText = styled.text`
-  font-size: 0.875rem;
-  font-weight: 600;
-  color: var(--text-bar);
-  font-family: 'Poppins';
-  transition: .3s;
-  cursor: pointer;
-  &:hover {
-    opacity: .7;
-  }
-`
-
 export const GetInText = styled.text`
   font-size: 1.4375rem;
   font-weight: 500;

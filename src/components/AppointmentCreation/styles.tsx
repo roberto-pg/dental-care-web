@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { CheckboxChecked } from 'styled-icons/boxicons-solid'
 
 export const AppointmentCreateContainer = styled.div`
   width: 100vw;
@@ -66,6 +67,19 @@ export const SpecialtyText = styled.text`
   position: absolute;
   left: 7.5rem;
   top: 4rem;
+`
+
+export const CheckButton = styled(CheckboxChecked)`
+  width: 2rem;
+  height: 2rem;
+  color: ${props => (props.className === 'free' ? 'var(--free)' : 'var(--not-free)')};
+  position: absolute;
+  left: 17.5rem;
+  top: 0.5rem;
+  cursor: pointer;
+  &:hover {
+    opacity: .7;
+  }
 `
 
 export const ChoiseDateText = styled.h1`

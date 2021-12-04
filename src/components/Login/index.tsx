@@ -5,14 +5,12 @@ import api from '../../services/api'
 import { login } from '../../services/auth'
 import { cpfMask, numberOnly } from '../../utils/cpfMask'
 import Swal from 'sweetalert2'
-import Link from 'next/link'
 import { useRouter } from 'next/router'
 import {
   LoginContainer,
   Content,
   SectionLeft,
   LoginBar,
-  RegisterText,
   GetInText,
   GetInDescription,
   CPFContainer,
@@ -41,8 +39,8 @@ function Login() {
     const data = ({ cpf, password })
 
     try {
-      const response = await api.post('authenticate/admin', data)
-      login(response.data.token, String(response.data.user.id))
+      const response = await api.post('authenticate-admin', data)
+      login(response.data.token, response.data.id)
       router.push('home')
       setCpfFormatted('')
       setPassword('')
@@ -68,9 +66,6 @@ function Login() {
         <SectionLeft>
           <LoginBar>
             <Logo />
-            <Link href="/admin">
-              <RegisterText>Registrar</RegisterText>
-            </Link>
           </LoginBar>
           <GetInText>ENTRAR</GetInText>
           <GetInDescription>Faça login para continuar</GetInDescription>

@@ -22,8 +22,8 @@ export function AdminNavBar() {
     <NavBar>
       <Logo />
       <ContainerButton>
-        <Link href='/'>
-          <ExitButton>Login</ExitButton>
+        <Link href='/home'>
+          <ExitButton>Home</ExitButton>
         </Link>
       </ContainerButton>
     </NavBar>
@@ -50,6 +50,10 @@ export function HomeNavBar() {
     <NavBar>
       <Logo />
       <ContainerButton>
+        <Link href='/admin'>
+          <NavText>Novo Admin</NavText>
+        </Link>
+
         <Link href='doctor-register'>
           <NavText>Novo Doutor</NavText>
         </Link>

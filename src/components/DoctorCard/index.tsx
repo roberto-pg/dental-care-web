@@ -13,8 +13,8 @@ const inSixtyMinutes = new Date(new Date().getTime() + 60 * 60 * 1000)
 export default function DoctorCard() {
   const { doctor } = useContext(DoctorContext)
 
-  function handleCookie(id: number) {
-    Cookies.set('doctorId', String(id), {
+  function handleCookie(id: string) {
+    Cookies.set('doctorId', id, {
       expires: inSixtyMinutes
     })
   }
@@ -28,7 +28,9 @@ export default function DoctorCard() {
             pathname: 'appointment-create'
           }}
         >
-          <DoctorCardContainer onClick={() => handleCookie(doc?.id)}>
+          <DoctorCardContainer
+            className={(doc.active === true) ? 'active' : ''}
+            onClick={() => handleCookie(doc?.id)}>
             <SpecialtyText>{doc.specialty}</SpecialtyText>
             <DoctorNameText>{doc.name}</DoctorNameText>
             <ImageDoctor src={doc.imageUrl} />

@@ -22,7 +22,7 @@ import {
 registerLocale('pt', pt)
 
 type DoctorById = {
-  id: number;
+  id: string;
   name: string;
   specialty: string;
   imageUrl: string;
@@ -34,8 +34,8 @@ type DocIdType = {
 }
 
 type Schedule = {
-  id: number;
-  doctorId: number;
+  id: string;
+  doctorId: string;
   monthDay: string;
   weekDay: string;
   hour: string;
@@ -50,9 +50,8 @@ type ScheduleType = {
 
 function DoctorSchedule() {
   const router = useRouter()
-  const id = Cookies.get('doctorId')
+  const doctorId = Cookies.get('doctorId')
   const { deletedSchedule = 0 } = router.query
-  const idNumber = Number(id)
   const [selectedIndex, setSelectedIndex] = useState<number[]>([])
   const [doc, setDoc] = useState<DoctorById>()
   const [value, setValue] = useState<Date | Date[] | null>(new Date())
@@ -60,7 +59,7 @@ function DoctorSchedule() {
   const [startDate, setStartDate] = useState(new Date())
 
   async function loadDoctor() {
-    const response: DocIdType = await api.get(`doctors/id/${idNumber}`)
+    const response: DocIdType = await api.get(`/doctor-id/${doctorId}`)
     const doctorData = response.data
     setDoc(doctorData)
   }
@@ -68,7 +67,7 @@ function DoctorSchedule() {
   async function loadDoctorSchedules() {
     try {
       const yearAndMonth = formatISO(new Date(startDate.toString())).substring(0, 7)
-      const response: ScheduleType = await api.get(`schedules/doctorId/${idNumber}/${yearAndMonth}`)
+      const response: ScheduleType = await api.get(`schedules-by-doctor/${doctorId}/${yearAndMonth}`)
       const scheduleList = response.data
       setDocSchedules(scheduleList)
     } catch (error) {
@@ -133,16 +132,16 @@ function DoctorSchedule() {
       Swal.fire('Agenda atualizada', 'confira os novos horários disponíveis')
       router.push({
         pathname: 'appointment-create',
-        query: { id: idNumber }
+        query: { id: doctorId }
       })
     } catch (error) {
-      Swal.fire('Oops, algo deu errado', error.response)
+      Swal.fire('Oops, algo deu errado', error.response.data.Error)
     }
   }
 
   return (
     <DoctorAppointmentContainer>
-      <DoctorProfileNavBar idDoctorAppointment={Number(id)} />
+      <DoctorProfileNavBar idDoctorAppointment={Number(doctorId)} />
       <Content>
         <SectionLeft>
           <ContainerLogo>
@@ -155,7 +154,6 @@ function DoctorSchedule() {
           </DoctorBioContainer>
           <DoctorBioText>
             {doc?.bio}
-            {/* Utilize as colunas ao<br />lado para excluir ou<br />criar horários para<br />agendamento */}
           </DoctorBioText>
         </SectionLeft>
         <form onSubmit={handleSubmit}>

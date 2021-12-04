@@ -1,11 +1,12 @@
 import { createContext, ReactNode, useState } from 'react'
 
 type DoctorData = {
-  id: number;
+  id: string;
   name: string;
   specialty: string;
   imageUrl: string;
   bio: string;
+  active: boolean;
 }
 
 type EquipeData = {

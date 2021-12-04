@@ -114,7 +114,7 @@ export const PatientDataTitle = styled.h1`
   color: var(--text-get-in);
 `
 
-export const Checked = styled(CheckboxChecked)`
+export const CheckPatient = styled(CheckboxChecked)`
   width: 2rem;
   height: 2rem;
   margin: 2.2rem 1.6rem 0 2rem;
@@ -249,7 +249,7 @@ export const RightBottomContainer = styled.div`
 
 export const DeleteButton = styled.button`
   width: 25.625rem;
-  height: 1.5625rem;
+  height: 1.875rem;
   background-color: var(--save-button-background);
   font-size: 0.875rem;
   color: var(--white);

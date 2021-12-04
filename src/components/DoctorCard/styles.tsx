@@ -6,8 +6,9 @@ height: 8rem;
 display: inline;
 padding: 0;
 border-radius: 0.625rem;
-background: white;
+background: ${props => (props.className === 'active' ? 'white' : 'lightgray')};
 cursor: pointer;
+filter: ${props => (props.className === 'active' ? '' : 'grayscale(1)')};
 
 &:hover {
       opacity: 0.7;

@@ -1,7 +1,4 @@
-import Logo from '../Logo'
-import AppointmentCreationCard from '../AppointmentCreationCard'
 import { useRouter } from 'next/router'
-import api from '../../services/api'
 import { useEffect, useState } from 'react'
 import 'react-datepicker/dist/react-datepicker.css'
 import { formatISO } from 'date-fns'
@@ -9,6 +6,10 @@ import Cookies from 'js-cookie'
 import DatePicker, { registerLocale } from 'react-datepicker'
 import pt from 'date-fns/locale/pt'
 import Link from 'next/link'
+import Swal from 'sweetalert2'
+import Logo from '../Logo'
+import api from '../../services/api'
+import AppointmentCreationCard from '../AppointmentCreationCard'
 import {
   AppointmentCreateContainer,
   SectionLeft,
@@ -21,16 +22,18 @@ import {
   ChoiseDateContainer,
   HomeText,
   CreateText,
-  SectionRight
+  SectionRight,
+  CheckButton
 } from './styles'
 registerLocale('pt', pt)
 
 type DoctorById = {
-  id: number;
+  id: string;
   name: string;
   specialty: string;
   imageUrl: string;
   bio: string;
+  active: boolean;
 }
 
 type DocIdType = {
@@ -38,8 +41,8 @@ type DocIdType = {
 }
 
 type Schedule = {
-  id: number;
-  doctorId: number;
+  id: string;
+  doctorId: string;
   monthDay: string;
   weekDay: string;
   hour: string;
@@ -57,15 +60,19 @@ type ScheduleType = {
 function AppointmentCreation() {
   const router = useRouter()
   const { refresh } = router.query
-  const id = Cookies.get('doctorId')
-  const idNumber = Number(id)
+  const doctorId = Cookies.get('doctorId')
   const refreshNumber = Number(refresh)
   const [doc, setDoc] = useState<DoctorById>()
   const [docSchedules, setDocSchedules] = useState<Schedule[]>()
   const [startDate, setStartDate] = useState(new Date())
 
+  useEffect(() => {
+    loadDoctor()
+    loadDoctorSchedules()
+  }, [startDate, refreshNumber])
+
   async function loadDoctor() {
-    const response: DocIdType = await api.get(`doctors/id/${idNumber}`)
+    const response: DocIdType = await api.get(`doctor-id/${doctorId}`)
     const res = response.data
     setDoc(res)
   }
@@ -73,7 +80,7 @@ function AppointmentCreation() {
   async function loadDoctorSchedules() {
     try {
       const yearAndMonth = formatISO(new Date(startDate.toString())).substring(0, 7)
-      const response: ScheduleType = await api.get(`schedules/doctorId/${idNumber}/${yearAndMonth}`)
+      const response: ScheduleType = await api.get(`schedules-by-doctor/${doctorId}/${yearAndMonth}`)
       const scheduleList = response.data
       setDocSchedules(scheduleList)
     } catch (error) {
@@ -82,14 +89,48 @@ function AppointmentCreation() {
     }
   }
 
-  function handleCookie() {
-    Cookies.remove('userId')
+  async function changeActiveDoctor(isActiveOrNot: boolean) {
+    const data = ({
+      id: doctorId,
+      active: !isActiveOrNot
+    })
+
+    Swal.fire({
+      title: isActiveOrNot === true ? 'Deseja desativar?' : 'Deseja ativar?',
+      text: 'Essa ação altera o status do dentista',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: isActiveOrNot === true ? 'Sim, pode desativar!' : 'Sim, pode ativar!'
+    }).then(async(result) => {
+      if (result.isConfirmed) {
+        try {
+          await api.patch('/doctor-active', data)
+          router.push({
+            pathname: '/home'
+          })
+          Swal.fire(
+            'Operação realizada',
+            isActiveOrNot === true ? 'Desativado' : 'Ativado',
+            'success'
+          )
+        } catch (error) {
+          Swal.fire('Falha na operaçao')
+        }
+      }
+    })
   }
 
-  useEffect(() => {
-    loadDoctor()
-    loadDoctorSchedules()
-  }, [startDate, refreshNumber])
+  async function createSchedules(active: boolean) {
+    if (active === true) {
+      router.push({
+        pathname: '/doctor-schedule'
+      })
+    } else {
+      Swal.fire('Essa agenda está desativada')
+    }
+  }
 
   return (
     <AppointmentCreateContainer>
@@ -99,6 +140,10 @@ function AppointmentCreation() {
         </ContainerLogo>
         <DoctorBioContainer >
           <ImageDoctor src={doc?.imageUrl} />
+          <CheckButton
+            className={doc?.active ? 'free' : ''}
+            onClick={() => changeActiveDoctor(doc?.active)}
+          />
           <DoctorNameText>{doc?.name}</DoctorNameText>
           <SpecialtyText>{doc?.specialty}</SpecialtyText>
         </DoctorBioContainer>
@@ -114,11 +159,9 @@ function AppointmentCreation() {
           />
         </ChoiseDateContainer>
         <Link href='home'>
-          <HomeText onClick={() => handleCookie()}>Home</HomeText>
+          <HomeText onClick={() => {}}>Home</HomeText>
         </Link>
-        <Link href='doctor-schedule'>
-          <CreateText onClick={() => handleCookie()}>Criar horários</CreateText>
-        </Link>
+        <CreateText onClick={() => createSchedules(doc?.active)}>Criar horários</CreateText>
       </SectionLeft>
       <SectionRight>
         <AppointmentCreationCard schedules={docSchedules} />
