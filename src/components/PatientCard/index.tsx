@@ -34,8 +34,6 @@ function PatientCard(props: UserType) {
     })
   }
 
-  // const admin = ' - Administrador'
-
   return (
     <>
       {users?.map(user => (
