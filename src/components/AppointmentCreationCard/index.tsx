@@ -35,7 +35,7 @@ type Schedule = {
   hour: string;
   scheduled: boolean;
   patientName: string;
-  plain: string;
+  plan: string;
   card: string;
   editable: boolean;
 }
@@ -66,7 +66,7 @@ function AppointmentCreationCard(props: ScheduleType) {
   const doctorId = Cookies.get('doctorId')
 
   const [cpf, setCpf] = useState('')
-  const [plain, setPlain] = useState('')
+  const [plan, setPlan] = useState('')
   const [card, setCard] = useState('')
   const [doctorIsDisabled, setDoctorIsDisabled] = useState(false)
 
@@ -131,7 +131,7 @@ function AppointmentCreationCard(props: ScheduleType) {
       id: id,
       cpf: cpf,
       card: card,
-      plain: plain,
+      plan: plan,
       scheduled: true
     })
 
@@ -140,7 +140,7 @@ function AppointmentCreationCard(props: ScheduleType) {
       Swal.fire('Consulta agendada com sucesso')
       setCpf('')
       setCard('')
-      setPlain('')
+      setPlan('')
       router.push({
         pathname: 'appointment-create',
         query: {
@@ -158,7 +158,7 @@ function AppointmentCreationCard(props: ScheduleType) {
       id: scheduleId,
       patientName: '',
       cpf: '',
-      plain: '',
+      plan: '',
       card: '',
       scheduled: false,
       editable: true
@@ -241,7 +241,7 @@ function AppointmentCreationCard(props: ScheduleType) {
                     onChange={(event) => { setCpf(event.target.value) }}
                   />
                   <Select
-                    onChange={(event) => { setPlain(event.target.value) }}
+                    onChange={(event) => { setPlan(event.target.value) }}
                     className={!schedule?.editable && !schedule?.scheduled ? 'free' : 'notFree'}
                   >
                     <option value="" hidden>
@@ -258,14 +258,14 @@ function AppointmentCreationCard(props: ScheduleType) {
                   <PlainInput
                     disabled={schedule?.scheduled}
                     className={schedule?.scheduled ? 'showPlain' : ''}
-                    placeholder={schedule?.plain}
-                    onChange={(event) => { setPlain(event.target.value) }}
+                    placeholder={schedule?.plan}
+                    onChange={(event) => { setPlan(event.target.value) }}
                   />
                   <CardInput
                     disabled={
                       !!schedule?.card ||
-                      schedule?.plain === 'Particular' ||
-                      plain === 'Particular' || plain === '' ||
+                      schedule?.plan === 'Particular' ||
+                      plan === 'Particular' || plan === '' ||
                       schedule.editable
                     }
                     placeholder={schedule?.card}

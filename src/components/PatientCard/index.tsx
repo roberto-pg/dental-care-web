@@ -16,7 +16,7 @@ type User = {
   email: string,
   cpf: string,
   card: string,
-  plain: string,
+  plan: string,
   active: boolean,
   admin: boolean
 }
@@ -51,7 +51,7 @@ function PatientCard(props: UserType) {
           >
             <LeftContainer>
               <PacientListTitle>{user?.admin === true ? user?.name + ' - Admin' : user?.name}</PacientListTitle>
-              <PacientListSubtitle>{user?.plain}</PacientListSubtitle>
+              <PacientListSubtitle>{user?.plan}</PacientListSubtitle>
             </LeftContainer>
             <RightContainer>
               <Checked className={user?.active ? 'free' : ''}/>

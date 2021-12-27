@@ -32,7 +32,7 @@ function AdminCreation() {
       name,
       email,
       cpf,
-      plain: 'Particular',
+      plan: 'Particular',
       card: '',
       password,
       admin: true

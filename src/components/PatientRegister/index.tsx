@@ -22,7 +22,7 @@ function PatientRegister() {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [cpfFormatted, setCpfFormatted] = useState('')
-  const [plain, setPlain] = useState('')
+  const [plan, setPlan] = useState('')
   const [card, setCard] = useState('')
   const router = useRouter()
 
@@ -35,7 +35,7 @@ function PatientRegister() {
       name,
       email,
       cpf,
-      plain,
+      plan,
       card,
       password: '123mudar',
       admin: false
@@ -83,7 +83,7 @@ function PatientRegister() {
               onChange={(event) => { setCpfFormatted(cpfMask(event.target.value)) }}
             />
             <Select
-              onChange={(event) => { setPlain(event.target.value) }}
+              onChange={(event) => { setPlan(event.target.value) }}
               style={{ marginTop: '2.125rem' }}
             >
               <option value="" hidden>
@@ -98,8 +98,8 @@ function PatientRegister() {
               <option value="Sul America">Sul America</option>
             </Select>
             <Input
-              disabled={plain === '' || plain === 'Particular'}
-              placeholder={plain !== '' && plain !== 'Particular' ? 'Número do beneficiário' : '' }
+              disabled={plan === '' || plan === 'Particular'}
+              placeholder={plan !== '' && plan !== 'Particular' ? 'Número do beneficiário' : '' }
               style={{ marginTop: '2.5rem' }}
               value={card}
               onChange={(event) => { setCard(event.target.value) }}

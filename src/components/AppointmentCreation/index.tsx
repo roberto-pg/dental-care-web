@@ -48,7 +48,7 @@ type Schedule = {
   hour: string;
   scheduled: boolean;
   patientName: string;
-  plain: string;
+  plan: string;
   card: string;
   editable: boolean;
 }

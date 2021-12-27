@@ -42,7 +42,7 @@ type User = {
   email: string,
   cpf: string,
   card: string,
-  plain: string,
+  plan: string,
   active: boolean,
   admin: boolean
 }
@@ -66,7 +66,7 @@ function PatientList() {
 
   async function loadUserId() {
     try {
-      const response = await api.get(`users/${userId}`)
+      const response = await api.get(`user-id/${userId}`)
       const userDataId = response.data
       setUserById(userDataId)
     } catch (error) {
@@ -175,7 +175,7 @@ function PatientList() {
                 <PatientDataText>{userById?.cpf ? cpfMask(userById?.cpf) : ''}</PatientDataText>
               </PatientDataContainer>
               <PatientDataContainer style={{ marginTop: '0.75rem' }} >
-                <PatientDataText>{userById?.plain}</PatientDataText>
+                <PatientDataText>{userById?.plan}</PatientDataText>
               </PatientDataContainer>
               <PatientDataContainer style={{ marginTop: '0.75rem' }} >
                 <PatientDataText>{userById?.card}</PatientDataText>
