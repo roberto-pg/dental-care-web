@@ -121,7 +121,7 @@ function DoctorSchedule() {
       weekDay: capitalizedWeekDay(format(new Date(value.toString()), 'EEEE', { locale: pt })),
       patientName: '',
       cpf: '',
-      plain: '',
+      plan: '',
       card: '',
       scheduled: false,
       editable: true,

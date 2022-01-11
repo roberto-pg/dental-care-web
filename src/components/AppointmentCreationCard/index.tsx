@@ -128,7 +128,7 @@ function AppointmentCreationCard(props: ScheduleType) {
 
   async function createAppointment(id: string, doctorId: string) {
     const data = ({
-      id: id,
+      scheduleId: id,
       cpf: cpf,
       card: card,
       plan: plan,

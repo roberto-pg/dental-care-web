@@ -37,7 +37,7 @@ function PatientRegister() {
       cpf,
       plan,
       card,
-      password: '123mudar',
+      password: '123456',
       admin: false
     })
 
